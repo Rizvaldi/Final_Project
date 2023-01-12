@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>FINAL PROJECT</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>FINAL PROJECT UAS</div>
+        <hr><!-- comment -->
+        <script>
+           const url = "http://localhost:8080/POST";
+            function post() {
+                let editID = document.getElementById("id").value;
+                let name = document.getElementById("name").value;
+                let nik = document.getElementById("nik").value;
+                let address = document.getElementById("address").value;
+                let dataText = {"id": editID, "name": name, "nik": nik, "address": address};    
+                let dataJson = JSON.stringify(dataText);
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+            }
+            
+             function put() {
+                const urlp = "http://localhost:8080/PUT";
+                let editID = document.getElementById("id").value;
+                let name = document.getElementById("name").value;
+                let nik = document.getElementById("nik").value;
+                let address = document.getElementById("address").value;
+                let dataText = {"id": editID, "name": name, "nik": nik, "address": address};
+                let dataJson = JSON.stringify(dataText);
+                $.ajax({
+                    url: urlp,
+                    method: 'PUT',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+            }
+           
+           function get() {
+                const urlg = "http://localhost:8080/GET";
+                $.ajax({
+                    url: urlg,
+                    method: 'GET',
+                    dataType: 'text',
+                    success: function (result) {
+                        document.getElementById("viewer").innerHTML = result;
+                    }
+                });
+            }
+           
+           function delID() {
+                const urlp = "http://localhost:8080/DELETE";
+                let editID = document.getElementById("myid").value;
+                let dataText = {"id": editID};
+                let dataJson = JSON.stringify(dataText);
+                $.ajax({
+                    url: urlp,
+                    method: 'DELETE',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+            }
+        </script>
+        <label>Id       :</Label><input type="text" id="myid" name="myid"><br>
+        <br>
+        <label>Nama     :</Label><input type="text" id="name" name="name"><br>
+        <br>
+        <label>NIK      :</Label><input type="varchar" id="nik" name="nik">
+        <br>
+        <label>Alamat   :</Label><label>Address  : </Label><input type="text" id="address" name="address"> 
+        <br>
+        <label>Photo    :</Label><input type="file" accept="image/jpeg, image/png" name="varImage" required=""/>
+        <hr>                
+        <button onclick="get())">Lihat Data</button>
+        <button onclick="post()">Kirim Data</button><br>
+        <button onclick="put()">Edit Data</button>
+        <button onclick="delID()">Delete Data</button>
+        <div id="viewer"></div>
+    </body>
+</html>
